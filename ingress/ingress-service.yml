@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: 
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - http:
+      paths: 
+      # please ref: https://github.com/helm/charts/issues/6264 to set subpath for /grafana
+      - path: /
+        pathType: Prefix
+        backend: 
+          service:
+            name: grafana-svc
+            port:
+              number: 3000
